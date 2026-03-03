@@ -1,0 +1,21 @@
+# Reference firewall policy framework (sample)
+# Principle: default deny, explicit allow
+policy:
+  default: deny
+  inbound:
+    - name: allow_ssh_from_bastion
+      proto: tcp
+      port: 22
+      source: bastion_subnet
+      dest: app_subnet
+    - name: allow_rdp_from_bastion
+      proto: tcp
+      port: 3389
+      source: bastion_subnet
+      dest: server_subnet
+  outbound:
+    - name: allow_https_outbound
+      proto: tcp
+      port: 443
+      source: any
+      dest: internet

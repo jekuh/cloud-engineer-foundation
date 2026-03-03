@@ -1,0 +1,18 @@
+---
+- name: Configure Windows web server
+  hosts: windows
+  tasks:
+    - name: Install IIS
+      ansible.windows.win_feature:
+        name: Web-Server
+        state: present
+        include_management_tools: true
+
+    - name: Deploy Windows web page
+      ansible.windows.win_copy:
+        dest: C:\inetpub\wwwroot\index.html
+        content: |
+          <html>
+            <h1>Windows Web Server</h1>
+            <p>Host: {{ inventory_hostname }}</p>
+          </html>

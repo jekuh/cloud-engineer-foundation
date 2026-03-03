@@ -1,0 +1,11 @@
+groups:
+  - name: platform-alerts
+    rules:
+      - alert: InstanceDown
+        expr: up == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Instance is down"
+          description: "Target has been unreachable for more than 2 minutes."

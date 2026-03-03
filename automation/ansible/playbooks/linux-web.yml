@@ -1,0 +1,25 @@
+---
+- name: Configure Linux web servers
+  hosts: linux
+  become: true
+  tasks:
+    - name: Install nginx
+      ansible.builtin.dnf:
+        name: nginx
+        state: present
+
+    - name: Deploy Linux web page
+      ansible.builtin.copy:
+        dest: /usr/share/nginx/html/index.html
+        mode: "0644"
+        content: |
+          <html>
+            <h1>Linux Web Server</h1>
+            <p>Host: {{ inventory_hostname }}</p>
+          </html>
+
+    - name: Enable and start nginx
+      ansible.builtin.service:
+        name: nginx
+        enabled: true
+        state: started
